@@ -153,9 +153,9 @@ nav button.on{color:var(--green);font-weight:700}
 footer{text-align:center;font-size:12px;color:var(--muted);padding:22px 0 0}
 /* ---- Ordinateur : menu à gauche, contenu large ---- */
 @media (min-width: 900px){
-  body{padding:28px}
-  .app{max-width:1180px;min-height:calc(100vh - 56px);border-radius:22px;overflow:hidden;
-    display:grid;grid-template-columns:232px 1fr;grid-template-rows:auto auto 1fr}
+  body{padding:18px}
+  .app{max-width:1640px;min-height:calc(100vh - 36px);border-radius:22px;overflow:hidden;
+    display:grid;grid-template-columns:260px 1fr;grid-template-rows:auto auto 1fr}
   header{grid-column:1/-1;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px}
   header .bar{flex:1;order:1}
   .roles{margin-top:0;width:380px;order:2}
@@ -163,10 +163,13 @@ footer{text-align:center;font-size:12px;color:var(--muted);padding:22px 0 0}
   .demo{grid-column:1/-1}
   nav{position:static;transform:none;width:auto;max-width:none;grid-column:1;grid-row:3;
     flex-direction:column;justify-content:flex-start;gap:4px;padding:22px 14px;border-top:0;border-inline-end:1px solid var(--line)}
-  nav button{flex:none;flex-direction:row;justify-content:flex-start;gap:12px;padding:12px 14px;font-size:15px;min-height:46px}
+  nav button{flex:none;flex-direction:row;justify-content:flex-start;gap:12px;padding:13px 16px;font-size:16.5px;min-height:50px}
   nav button.on{background:var(--green-soft)}
   main{grid-column:2;grid-row:3;padding:30px 36px 40px;min-width:0}
-  main > *{max-width:880px}
+  main > *{max-width:1240px}
+  main{font-size:17px}
+  .row .grow b{font-size:16.5px}.row .grow small{font-size:14.5px}.row .amt{font-size:16.5px}
+  .kpi small{font-size:14px}.kpi b{font-size:22px}
   h1{font-size:30px}
   .grid2{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
   .photos{grid-template-columns:repeat(4,1fr)}
