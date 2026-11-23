@@ -22,13 +22,13 @@ Interface en français et en arabe (droite à gauche). Toutes les données sont 
 
 ## Installation sur un VPS
 
-Prérequis : nginx installé, et un enregistrement DNS de type A qui pointe le sous-domaine vers le serveur.
+Prérequis : Caddy ou nginx installé, et un enregistrement DNS de type A qui pointe le sous-domaine vers le serveur.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/abouali50/chafafia/main/deploy.sh | bash -s -- chafafia.exemple.com
 ```
 
-Le script ajoute un seul fichier de site nginx et ne touche pas aux sites déjà en service. Relancer la même commande met la maquette à jour.
+Le script ajoute un seul bloc de site (après sauvegarde de la configuration) et ne touche pas aux sites déjà en service. Relancer la même commande met la maquette à jour.
 
 ## Fichiers
 
