@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chafafia — Transparence pour amicales et coopératives d'habitat</title>
+<meta name="author" content="Aziz Mernissi">
+<meta name="description" content="Maquette de Chafafia : suivi des tranches, du chantier, des comptes et des documents pour les adhérents et le bureau d'une amicale d'habitat.">
+<meta name="theme-color" content="#0f6b4f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" media="print" onload="this.media=\'all\'">
+<style>
+:root{
+  --ink:#12261f; --muted:#5d6e66; --line:#e4dccd;
+  --bg:#f4efe6; --card:#fffdf8;
+  --green:#0f6b4f; --green-soft:#dcefe6;
+  --ochre:#c8843a; --ochre-soft:#f7e8d3;
+  --red:#b3422f; --red-soft:#f8e1dc;
+  --radius:18px;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Fraunces",Georgia,serif;
+}
+html[lang="ar"]{ --body:"Tajawal",system-ui,sans-serif; --display:"Tajawal",system-ui,sans-serif; }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--body); color:var(--ink); background:#1b332a;
+  background-image:radial-gradient(circle at 20% 10%,#2b5243 0,transparent 45%),radial-gradient(circle at 85% 90%,#3a2f1c 0,transparent 40%);
+  -webkit-font-smoothing:antialiased; line-height:1.45;
+}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.app{
+  max-width:480px; min-height:100%; margin:0 auto; background:var(--bg);
+  display:flex; flex-direction:column; position:relative;
+  box-shadow:0 0 60px rgba(0,0,0,.35);
+}
+header{
+  background:var(--green); color:#fff; padding:14px 16px 16px;
+  padding-top:calc(14px + env(safe-area-inset-top));
+  background-image:linear-gradient(135deg,rgba(255,255,255,.07) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.07) 50%,rgba(255,255,255,.07) 75%,transparent 75%);
+  background-size:22px 22px;
+}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+  width:38px;height:38px;border-radius:11px;background:var(--ochre);
+  display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:20px;color:#fff;
+}
+.brand b{font-family:var(--display);font-size:20px;letter-spacing:.2px;display:block;line-height:1.1}
+.brand span{font-size:12px;opacity:.8}
+.lang{
+  border:1.5px solid rgba(255,255,255,.55);border-radius:999px;padding:6px 13px;
+  font-weight:700;font-size:14px;color:#fff;min-width:44px;min-height:36px;
+}
+.roles{
+  margin-top:14px;display:grid;grid-template-columns:1fr 1fr;background:rgba(0,0,0,.22);
+  border-radius:12px;padding:4px;gap:4px;
+}
+.roles button{padding:9px 6px;border-radius:9px;font-weight:700;font-size:14px;color:rgba(255,255,255,.8)}
+.roles button.on{background:#fff;color:var(--green)}
+.demo{
+  background:var(--ochre-soft);color:#7a4a12;font-size:12.5px;text-align:center;
+  padding:7px 12px;border-bottom:1px solid #ecd6b4;font-weight:500;
+}
+main{flex:1;padding:16px 16px 96px}
+h1{font-family:var(--display);font-size:24px;line-height:1.2;margin-bottom:2px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:16px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin:22px 0 10px;font-weight:700}
+html[lang="ar"] h2{letter-spacing:0;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.card + .card{margin-top:10px}
+.hero{background:var(--ink);color:#fff;border:0;display:flex;gap:16px;align-items:center}
+.hero small{opacity:.7;font-size:13px;display:block}
+.hero strong{font-family:var(--display);font-size:27px;display:block;line-height:1.15;margin:2px 0 6px}
+.ring{flex:none;width:92px;height:92px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:20px;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2 .card + .card{margin-top:0}
+.kpi small{color:var(--muted);font-size:12.5px;display:block}
+.kpi b{font-size:19px;display:block;margin-top:3px;font-weight:700}
+.kpi.good b{color:var(--green)} .kpi.bad b{color:var(--red)}
+.next{background:var(--ochre-soft);border-color:#ecd6b4;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.next small{color:#7a4a12;font-size:12.5px;display:block}
+.next b{font-size:18px}
+.btn{
+  background:var(--green);color:#fff;border-radius:12px;padding:11px 15px;font-weight:700;font-size:14px;
+  min-height:44px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+}
+.btn.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green)}
+.btn.wa{background:#1f8f4d}
+.btn.small{padding:8px 12px;min-height:38px;font-size:13px}
+.row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0;padding-bottom:0}
+.row:first-child{padding-top:0}
+.row .grow{flex:1;min-width:0}
+.row .grow b{display:block;font-size:15px}
+.row .grow small{color:var(--muted);font-size:13px;display:block}
+.row .amt{font-weight:700;font-size:15px;text-align:end;white-space:nowrap}
+.dot{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:700}
+.dot.ok{background:var(--green-soft);color:var(--green)}
+.dot.due{background:var(--ochre-soft);color:var(--ochre)}
+.dot.todo{background:#ece6da;color:var(--muted)}
+.dot.late{background:var(--red-soft);color:var(--red)}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 9px}
+.tag.ok{background:var(--green-soft);color:var(--green)}
+.tag.late{background:var(--red-soft);color:var(--red)}
+.tag.due{background:var(--ochre-soft);color:#8a5412}
+.tag.mre{background:#e3e8f6;color:#33468c}
+.track{height:9px;background:#e9e2d4;border-radius:99px;overflow:hidden;margin-top:7px}
+.track i{display:block;height:100%;background:var(--green);border-radius:99px}
+.track i.o{background:var(--ochre)}
+.phase{padding:12px 0;border-bottom:1px solid var(--line)}
+.phase:last-child{border-bottom:0;padding-bottom:0}.phase:first-child{padding-top:0}
+.phase .top{display:flex;justify-content:space-between;gap:10px;font-size:14.5px}
+.phase .top b{font-weight:500}.phase .top span{font-weight:700;color:var(--green)}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.photo{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.photo .img{height:104px;position:relative;background:linear-gradient(160deg,#9fb6c9 0 45%,#c9b89a 45% 100%)}
+.photo .img::before{content:"";position:absolute;inset:auto 14% 0 14%;height:62%;
+  background:repeating-linear-gradient(90deg,#8a8377 0 10px,#a59d8f 10px 22px),#8a8377;
+  clip-path:polygon(0 100%,0 30%,34% 30%,34% 0,100% 0,100% 100%);opacity:.9}
+.photo.b .img{background:linear-gradient(160deg,#c7b08d 0 40%,#8d7a5e 40% 100%)}
+.photo.c .img{background:linear-gradient(160deg,#a9c3b4 0 50%,#b9a98c 50% 100%)}
+.photo.d .img{background:linear-gradient(160deg,#d3c2a6 0 38%,#77705f 38% 100%)}
+.photo p{font-size:12.5px;padding:8px 10px;color:var(--muted)}
+.photo p b{display:block;color:var(--ink);font-size:13px}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
+  background:var(--card);border-top:1px solid var(--line);display:flex;
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:5;
+}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px;font-size:11.5px;color:var(--muted);font-weight:500;border-radius:10px;min-height:52px}
+nav button svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--green);font-weight:700}
+#modal{position:fixed;inset:0;background:rgba(18,38,31,.6);display:none;align-items:flex-end;justify-content:center;z-index:20}
+#modal.on{display:flex}
+.sheet{background:var(--card);width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
+.sheet h3{font-family:var(--display);font-size:21px;margin-bottom:4px}
+.sheet dl{margin:14px 0 18px;border:1px dashed #cfc5b2;border-radius:14px;padding:4px 14px}
+.sheet dl div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.sheet dl div:last-child{border-bottom:0}
+.sheet dt{color:var(--muted)} .sheet dd{font-weight:700;text-align:end}
+.sheet .acts{display:flex;gap:10px}.sheet .acts .btn{flex:1;justify-content:center}
+#toast{
+  position:fixed;bottom:92px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;
+  background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;z-index:30;
+  transition:.25s;max-width:min(420px,90vw);text-align:center;
+}
+#toast.on{opacity:1;transform:translateX(-50%)}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:22px 0 0}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="bar">
+      <div class="brand">
+        <div class="logo">ش</div>
+        <div><b>Chafafia</b><span id="tagline">Transparence pour amicales d'habitat</span></div>
+      </div>
+      <button class="lang" id="lang" aria-label="Changer de langue">ع</button>
+    </div>
+    <div class="roles" role="tablist">
+      <button data-role="member" class="on">Adhérent</button>
+      <button data-role="board">Bureau de l'amicale</button>
+    </div>
+  </header>
+  <div class="demo" id="demo">Maquette de démonstration — toutes les données sont fictives</div>
+  <main id="view"><h1>Bonjour Karim</h1><p class="sub">Résidence Al Manar · Tanger · Lot B-14</p>
+    <div class="card hero"><div class="ring"><svg width="92" height="92" viewBox="0 0 92 92">
+    <circle cx="46" cy="46" r="38" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="9"></circle>
+    <circle cx="46" cy="46" r="38" fill="none" stroke="#e0a45c" stroke-width="9" stroke-linecap="round" stroke-dasharray="238.76104167282426" stroke-dashoffset="136.09379375350986"></circle></svg><b>43%</b></div><div><small>Déjà payé</small><strong><bdi dir="ltr">180&nbsp;000</bdi> DH</strong>
+      <small>sur <bdi dir="ltr">420&nbsp;000</bdi> DH</small></div></div>
+    <div class="card next"><div><small>Prochaine tranche · 15/12/2026</small><b><bdi dir="ltr">70&nbsp;000</bdi> DH</b></div>
+      <button class="btn" data-toast="payinfoMsg">Comment payer</button></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card kpi"><small>Reste à payer</small><b><bdi dir="ltr">240&nbsp;000</bdi> DH</b></div>
+      <div class="card kpi good"><small>Avancement du chantier</small><b>52%</b><div class="track"><i class="" style="width:52%"></i></div></div></div>
+    <h2>Dernières annonces</h2>
+    <div class="card"><div class="row"><div class="grow"><small>18/11/2026</small><b style="font-weight:500">Le coulage de la dalle du 2e étage du bloc B est terminé.</b></div></div><div class="row"><div class="grow"><small>05/11/2026</small><b style="font-weight:500">Assemblée générale le 20/12/2026 à 10h. L'ordre du jour est dans Documents.</b></div></div><div class="row"><div class="grow"><small>28/10/2026</small><b style="font-weight:500">Le rapport financier du 3e trimestre est publié.</b></div></div></div>
+    <p style="margin-top:14px"><button class="btn ghost" data-go="site">Voir le chantier</button></p><footer>© 2026 Aziz Mernissi · Chafafia</footer></main>
+  <nav id="tabs"><button data-go="home" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"></path></svg>Accueil</button><button data-go="pay" class=""><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg>Paiements</button><button data-go="site" class=""><svg viewBox="0 0 24 24"><path d="M4 21V9l8-6 8 6v12M9 21v-6h6v6"></path></svg>Chantier</button><button data-go="acc" class=""><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"></path></svg>Comptes</button><button data-go="docs" class=""><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6"></path></svg>Documents</button></nav>
+</div>
+<div id="modal"><div class="sheet" id="sheet"></div></div>
+<div id="toast" role="status"></div>
+
+<script>
+/* Chafafia — maquette cliquable. Auteur : Aziz Mernissi. Données fictives. */
+const S = { lang: 'fr', role: 'member', tab: 'home' };
+
+const T = {
+  tagline:{fr:"Transparence pour amicales d'habitat", ar:"الشفافية للوداديات السكنية"},
+  demo:{fr:"Maquette de démonstration — toutes les données sont fictives", ar:"نموذج تجريبي — جميع المعطيات وهمية"},
+  member:{fr:"Adhérent", ar:"المنخرط"}, board:{fr:"Bureau de l'amicale", ar:"مكتب الودادية"},
+  dh:{fr:"DH", ar:"درهم"},
+  home:{fr:"Accueil", ar:"الرئيسية"}, pay:{fr:"Paiements", ar:"الأداءات"}, site:{fr:"Chantier", ar:"الورش"},
+  acc:{fr:"Comptes", ar:"الحسابات"}, docs:{fr:"Documents", ar:"الوثائق"},
+  dash:{fr:"Tableau", ar:"اللوحة"}, members:{fr:"Adhérents", ar:"المنخرطون"}, exp:{fr:"Dépenses", ar:"المصاريف"}, wait:{fr:"Attente", ar:"الانتظار"},
+  hello:{fr:"Bonjour Karim", ar:"مرحبا كريم"},
+  lot:{fr:"Résidence Al Manar · Tanger · Lot B-14", ar:"إقامة المنار · طنجة · الشقة B-14"},
+  paid:{fr:"Déjà payé", ar:"المبلغ المؤدى"}, of:{fr:"sur", ar:"من أصل"},
+  remaining:{fr:"Reste à payer", ar:"الباقي"}, price:{fr:"Prix du lot", ar:"ثمن الشقة"},
+  next:{fr:"Prochaine tranche · 15/12/2026", ar:"الدفعة المقبلة · 15/12/2026"},
+  payinfo:{fr:"Comment payer", ar:"طريقة الأداء"},
+  payinfoMsg:{fr:"Virement ou dépôt sur le compte de l'amicale. Le reçu apparaît ici après validation par le bureau.", ar:"تحويل أو إيداع في حساب الودادية. يظهر الوصل هنا بعد مصادقة المكتب."},
+  news:{fr:"Dernières annonces", ar:"آخر الإعلانات"},
+  siteNow:{fr:"Avancement du chantier", ar:"تقدم الأشغال"}, seeSite:{fr:"Voir le chantier", ar:"عرض الورش"},
+  payTitle:{fr:"Mes paiements", ar:"أداءاتي"}, paySub:{fr:"6 tranches · touchez une tranche payée pour voir le reçu", ar:"6 دفعات · اضغط على دفعة مؤداة لعرض الوصل"},
+  stPaid:{fr:"Payée", ar:"مؤداة"}, stDue:{fr:"À venir", ar:"قادمة"}, stTodo:{fr:"Plus tard", ar:"لاحقا"},
+  receipt:{fr:"Reçu de paiement", ar:"وصل الأداء"}, rNo:{fr:"N° de reçu", ar:"رقم الوصل"}, rDate:{fr:"Date", ar:"التاريخ"},
+  rAmt:{fr:"Montant", ar:"المبلغ"}, rMode:{fr:"Mode", ar:"طريقة الأداء"}, rFor:{fr:"Objet", ar:"الموضوع"},
+  pdf:{fr:"Télécharger le PDF", ar:"تحميل PDF"}, close:{fr:"Fermer", ar:"إغلاق"},
+  siteTitle:{fr:"Le chantier", ar:"الورش"}, siteSub:{fr:"Livraison prévue : 4e trimestre 2027", ar:"التسليم المرتقب: الربع الأخير من 2027"},
+  global:{fr:"Avancement global", ar:"التقدم الإجمالي"}, phases:{fr:"Étapes", ar:"المراحل"}, photos:{fr:"Photos datées", ar:"صور مؤرخة"},
+  photoNote:{fr:"Le bureau publie de nouvelles photos chaque mois.", ar:"ينشر المكتب صورا جديدة كل شهر."},
+  accTitle:{fr:"Les comptes de l'amicale", ar:"حسابات الودادية"}, accSub:{fr:"Visibles par tous les adhérents, mis à jour le 20/11/2026", ar:"متاحة لجميع المنخرطين، آخر تحديث 20/11/2026"},
+  collected:{fr:"Encaissé", ar:"المداخيل"}, spent:{fr:"Dépensé", ar:"المصاريف"}, cash:{fr:"Solde en caisse", ar:"الرصيد"},
+  where:{fr:"Où va l'argent", ar:"أين يذهب المال"}, proof:{fr:"Justificatif", ar:"الإثبات"},
+  docsTitle:{fr:"Documents", ar:"الوثائق"}, docsSub:{fr:"Les pièces officielles du projet, consultables à tout moment", ar:"الوثائق الرسمية للمشروع، متاحة في كل وقت"},
+  view:{fr:"Voir", ar:"عرض"},
+  demoDoc:{fr:"Document de démonstration", ar:"وثيقة تجريبية"},
+  dashTitle:{fr:"Tableau de bord", ar:"لوحة القيادة"}, dashSub:{fr:"Résidence Al Manar · 120 adhérents", ar:"إقامة المنار · 120 منخرطا"},
+  rate:{fr:"Taux de recouvrement", ar:"نسبة التحصيل"}, late:{fr:"Retards", ar:"المتأخرات"}, lateN:{fr:"11 adhérents", ar:"11 منخرطا"},
+  expected:{fr:"Attendu à ce jour", ar:"المنتظر إلى اليوم"},
+  remindAll:{fr:"Relancer les 11 retards", ar:"تذكير المتأخرين الـ11"},
+  remindAllMsg:{fr:"11 rappels WhatsApp préparés (démo)", ar:"تم تجهيز 11 تذكيرا عبر واتساب (تجريبي)"},
+  report:{fr:"Rapport pour l'assemblée", ar:"تقرير الجمع العام"}, reportMsg:{fr:"Rapport PDF généré (démo)", ar:"تم إنشاء التقرير (تجريبي)"},
+  memTitle:{fr:"Adhérents", ar:"المنخرطون"}, memSub:{fr:"8 affichés sur 120", ar:"8 معروضون من أصل 120"},
+  upToDate:{fr:"À jour", ar:"في وضعية سليمة"}, lateOf:{fr:"Retard", ar:"متأخر"}, days:{fr:"j", ar:"يوم"},
+  remind:{fr:"Relancer", ar:"تذكير"}, remindMsg:{fr:"Rappel WhatsApp préparé pour", ar:"تم تجهيز تذكير واتساب لـ"},
+  expTitle:{fr:"Dépenses", ar:"المصاريف"}, expSub:{fr:"Chaque dépense est publiée avec son justificatif", ar:"كل مصروف ينشر مع وثيقة إثباته"},
+  addExp:{fr:"Ajouter une dépense", ar:"إضافة مصروف"}, addExpMsg:{fr:"Formulaire d'ajout (démo)", ar:"استمارة الإضافة (تجريبي)"},
+  waitTitle:{fr:"Liste d'attente", ar:"لائحة الانتظار"}, waitSub:{fr:"Ordre d'inscription, visible et daté", ar:"حسب ترتيب التسجيل، معلن ومؤرخ"},
+  since:{fr:"Inscrit le", ar:"مسجل في"}, offer:{fr:"Proposer un lot", ar:"اقتراح شقة"}, offerMsg:{fr:"Proposition envoyée (démo)", ar:"تم إرسال الاقتراح (تجريبي)"},
+  demoTag:{fr:"(démo)", ar:"(تجريبي)"},
+  foot:{fr:"© 2026 Aziz Mernissi · Chafafia", ar:"© 2026 عزيز المرنيسي · شفافية"}
+};
+const t = k => T[k][S.lang];
+const L = o => (typeof o === 'string' ? o : o[S.lang]);
+const money = n => '<bdi dir="ltr">' + n.toLocaleString('fr-FR').replace(/\s/g, '\u00a0') + '</bdi> ' + t('dh');
+
+const PRICE = 420000;
+const TRANCHES = [
+  {n:{fr:"Réservation",ar:"الحجز"}, a:40000, d:"12/02/2025", st:"paid", no:"2025-0031", m:{fr:"Virement",ar:"تحويل بنكي"}},
+  {n:{fr:"Tranche 1 — Acquisition du terrain",ar:"الدفعة 1 — اقتناء الأرض"}, a:70000, d:"20/06/2025", st:"paid", no:"2025-0118", m:{fr:"Virement",ar:"تحويل بنكي"}},
+  {n:{fr:"Tranche 2 — Fondations",ar:"الدفعة 2 — الأساسات"}, a:70000, d:"14/03/2026", st:"paid", no:"2026-0147", m:{fr:"Chèque",ar:"شيك"}},
+  {n:{fr:"Tranche 3 — Gros œuvre",ar:"الدفعة 3 — الأشغال الكبرى"}, a:70000, d:"15/12/2026", st:"due"},
+  {n:{fr:"Tranche 4 — Second œuvre",ar:"الدفعة 4 — الأشغال الثانوية"}, a:70000, d:"06/2027", st:"todo"},
+  {n:{fr:"Solde — Remise des clés",ar:"الباقي — تسليم المفاتيح"}, a:100000, d:"12/2027", st:"todo"}
+];
+const PAID = TRANCHES.filter(x => x.st === 'paid').reduce((s, x) => s + x.a, 0);
+
+const PHASES = [
+  {n:{fr:"Terrain et titre foncier",ar:"الأرض والرسم العقاري"}, p:100},
+  {n:{fr:"Autorisation de construire",ar:"رخصة البناء"}, p:100},
+  {n:{fr:"Terrassement et fondations",ar:"الحفر والأساسات"}, p:100},
+  {n:{fr:"Gros œuvre",ar:"الأشغال الكبرى"}, p:60},
+  {n:{fr:"Second œuvre",ar:"الأشغال الثانوية"}, p:0},
+  {n:{fr:"Finitions et livraison",ar:"التشطيبات والتسليم"}, p:0}
+];
+const GLOBAL = 52;
+const PHOTOS = [
+  {c:"", d:"18/11/2026", n:{fr:"Dalle du 2e étage, bloc B",ar:"سقف الطابق الثاني، العمارة B"}},
+  {c:"b", d:"21/10/2026", n:{fr:"Élévation des poteaux, bloc A",ar:"رفع الأعمدة، العمارة A"}},
+  {c:"c", d:"16/09/2026", n:{fr:"Dalle du 1er étage",ar:"سقف الطابق الأول"}},
+  {c:"d", d:"08/06/2026", n:{fr:"Fondations terminées",ar:"انتهاء الأساسات"}}
+];
+const NEWS = [
+  {d:"18/11/2026", n:{fr:"Le coulage de la dalle du 2e étage du bloc B est terminé.",ar:"انتهى صب سقف الطابق الثاني للعمارة B."}},
+  {d:"05/11/2026", n:{fr:"Assemblée générale le 20/12/2026 à 10h. L'ordre du jour est dans Documents.",ar:"الجمع العام يوم 20/12/2026 على الساعة 10. جدول الأعمال متاح في الوثائق."}},
+  {d:"28/10/2026", n:{fr:"Le rapport financier du 3e trimestre est publié.",ar:"تم نشر التقرير المالي للفصل الثالث."}}
+];
+const COLLECTED = 19850000, EXPECTED = 21600000;
+const EXPENSES = [
+  {n:{fr:"Acquisition du terrain",ar:"اقتناء الأرض"}, a:6000000, d:"07/2025"},
+  {n:{fr:"Gros œuvre — situations 1 à 3",ar:"الأشغال الكبرى — الكشوف 1 إلى 3"}, a:3400000, d:"11/2026"},
+  {n:{fr:"Terrassement et fondations",ar:"الحفر والأساسات"}, a:3100000, d:"06/2026"},
+  {n:{fr:"Études et architecte",ar:"الدراسات والمهندس المعماري"}, a:900000, d:"10/2025"},
+  {n:{fr:"Autorisations et taxes",ar:"الرخص والرسوم"}, a:450000, d:"01/2026"},
+  {n:{fr:"Frais de gestion",ar:"مصاريف التسيير"}, a:350000, d:"11/2026"}
+];
+const SPENT = EXPENSES.reduce((s, x) => s + x.a, 0);
+const DOCS = [
+  {n:{fr:"Statuts de l'amicale",ar:"القانون الأساسي للودادية"}, d:"2025"},
+  {n:{fr:"Récépissé de dépôt légal",ar:"وصل الإيداع القانوني"}, d:"2025"},
+  {n:{fr:"Titre foncier du terrain",ar:"الرسم العقاري للأرض"}, d:"07/2025"},
+  {n:{fr:"Autorisation de construire",ar:"رخصة البناء"}, d:"01/2026"},
+  {n:{fr:"Contrat avec l'entreprise de construction",ar:"عقد شركة البناء"}, d:"03/2026"},
+  {n:{fr:"PV de l'assemblée générale 2026",ar:"محضر الجمع العام 2026"}, d:"02/2026"},
+  {n:{fr:"Rapport financier — 3e trimestre 2026",ar:"التقرير المالي — الفصل الثالث 2026"}, d:"10/2026"}
+];
+const MEMBERS = [
+  {n:{fr:"Karim B.",ar:"كريم ب."}, l:"B-14", late:0},
+  {n:{fr:"Rachid O.",ar:"رشيد و."}, l:"B-07", late:140000, j:96},
+  {n:{fr:"Youssef T.",ar:"يوسف ت."}, l:"C-21", late:70000, j:38},
+  {n:{fr:"Omar L.",ar:"عمر ل."}, l:"A-18", late:70000, j:12},
+  {n:{fr:"Salma E.",ar:"سلمى إ."}, l:"A-03", late:0},
+  {n:{fr:"Imane Z.",ar:"إيمان ز."}, l:"C-02", late:0, mre:1},
+  {n:{fr:"Houda M.",ar:"هدى م."}, l:"A-11", late:0},
+  {n:{fr:"Fatima-Zahra K.",ar:"فاطمة الزهراء ك."}, l:"B-22", late:0, mre:1}
+];
+const WAIT = [
+  {n:{fr:"Hicham A.",ar:"هشام أ."}, d:"03/04/2026"},
+  {n:{fr:"Sara B.",ar:"سارة ب."}, d:"19/05/2026"},
+  {n:{fr:"Mehdi R.",ar:"مهدي ر."}, d:"02/07/2026"},
+  {n:{fr:"Khadija S.",ar:"خديجة س."}, d:"11/09/2026"},
+  {n:{fr:"Anas D.",ar:"أنس د."}, d:"27/10/2026"}
+];
+
+const ICON = {
+  home:'<path d="M3 11l9-8 9 8M5 10v10h14V10"/>',
+  pay:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
+  site:'<path d="M4 21V9l8-6 8 6v12M9 21v-6h6v6"/>',
+  acc:'<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
+  docs:'<path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6"/>',
+  dash:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="11" width="8" height="10" rx="1.5"/><rect x="3" y="14" width="8" height="7" rx="1.5"/>',
+  members:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.8a3.5 3.5 0 010 6.4M18 14.8c2 .7 3.2 2.4 3.6 5.2"/>',
+  exp:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/>',
+  wait:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+};
+const TABS = { member:['home','pay','site','acc','docs'], board:['dash','members','exp','wait'] };
+
+const ring = p => {
+  const c = 2 * Math.PI * 38;
+  return `<div class="ring"><svg width="92" height="92" viewBox="0 0 92 92">
+    <circle cx="46" cy="46" r="38" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="9"/>
+    <circle cx="46" cy="46" r="38" fill="none" stroke="#e0a45c" stroke-width="9" stroke-linecap="round"
+      stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p / 100)}"/></svg><b>${p}%</b></div>`;
+};
+const bar = (p, cls = '') => `<div class="track"><i class="${cls}" style="width:${p}%"></i></div>`;
+const foot = () => `<footer>${t('foot')}</footer>`;
+
+const V = {
+  home() {
+    const pct = Math.round(PAID / PRICE * 100);
+    return `<h1>${t('hello')}</h1><p class="sub">${t('lot')}</p>
+    <div class="card hero">${ring(pct)}<div><small>${t('paid')}</small><strong>${money(PAID)}</strong>
+      <small>${t('of')} ${money(PRICE)}</small></div></div>
+    <div class="card next"><div><small>${t('next')}</small><b>${money(70000)}</b></div>
+      <button class="btn" data-toast="payinfoMsg">${t('payinfo')}</button></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card kpi"><small>${t('remaining')}</small><b>${money(PRICE - PAID)}</b></div>
+      <div class="card kpi good"><small>${t('siteNow')}</small><b>${GLOBAL}%</b>${bar(GLOBAL)}</div></div>
+    <h2>${t('news')}</h2>
+    <div class="card">${NEWS.map(x => `<div class="row"><div class="grow"><small>${x.d}</small><b style="font-weight:500">${L(x.n)}</b></div></div>`).join('')}</div>
+    <p style="margin-top:14px"><button class="btn ghost" data-go="site">${t('seeSite')}</button></p>${foot()}`;
+  },
+  pay() {
+    const mark = {paid:'✓', due:'!', todo:'·'}, cls = {paid:'ok', due:'due', todo:'todo'}, lab = {paid:'stPaid', due:'stDue', todo:'stTodo'};
+    return `<h1>${t('payTitle')}</h1><p class="sub">${t('paySub')}</p>
+    <div class="card">${TRANCHES.map((x, i) => `<div class="row" ${x.st === 'paid' ? `data-receipt="${i}" role="button" tabindex="0" style="cursor:pointer"` : ''}>
+      <div class="dot ${cls[x.st]}">${mark[x.st]}</div>
+      <div class="grow"><b>${L(x.n)}</b><small>${x.d} · <span class="tag ${cls[x.st] === 'todo' ? 'due' : cls[x.st]}">${t(lab[x.st])}</span></small></div>
+      <div class="amt">${money(x.a)}</div></div>`).join('')}</div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card kpi good"><small>${t('paid')}</small><b>${money(PAID)}</b></div>
+      <div class="card kpi"><small>${t('remaining')}</small><b>${money(PRICE - PAID)}</b></div></div>${foot()}`;
+  },
+  site() {
+    return `<h1>${t('siteTitle')}</h1><p class="sub">${t('siteSub')}</p>
+    <div class="card kpi good"><small>${t('global')}</small><b>${GLOBAL}%</b>${bar(GLOBAL)}</div>
+    <h2>${t('phases')}</h2>
+    <div class="card">${PHASES.map(x => `<div class="phase"><div class="top"><b>${L(x.n)}</b><span>${x.p}%</span></div>${bar(x.p, x.p < 100 && x.p > 0 ? 'o' : '')}</div>`).join('')}</div>
+    <h2>${t('photos')}</h2>
+    <div class="photos">${PHOTOS.map(x => `<div class="photo ${x.c}"><div class="img"></div><p><b>${x.d}</b>${L(x.n)}</p></div>`).join('')}</div>
+    <p class="note">${t('photoNote')}</p>${foot()}`;
+  },
+  acc() {
+    return `<h1>${t('accTitle')}</h1><p class="sub">${t('accSub')}</p>
+    <div class="card hero" style="display:block"><small>${t('cash')}</small><strong>${money(COLLECTED - SPENT)}</strong></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card kpi good"><small>${t('collected')}</small><b>${money(COLLECTED)}</b></div>
+      <div class="card kpi"><small>${t('spent')}</small><b>${money(SPENT)}</b></div></div>
+    <h2>${t('where')}</h2>
+    <div class="card">${EXPENSES.map(x => `<div class="phase"><div class="top"><b>${L(x.n)}</b><span style="color:var(--ink)">${money(x.a)}</span></div>
+      ${bar(Math.round(x.a / SPENT * 100), 'o')}
+      <p style="margin-top:8px"><button class="btn ghost small" data-toast="demoDoc">${t('proof')} · ${x.d}</button></p></div>`).join('')}</div>${foot()}`;
+  },
+  docs() {
+    return `<h1>${t('docsTitle')}</h1><p class="sub">${t('docsSub')}</p>
+    <div class="card">${DOCS.map(x => `<div class="row"><div class="dot ok">PDF</div>
+      <div class="grow"><b>${L(x.n)}</b><small>${x.d}</small></div>
+      <button class="btn ghost small" data-toast="demoDoc">${t('view')}</button></div>`).join('')}</div>${foot()}`;
+  },
+  dash() {
+    const rate = Math.round(COLLECTED / EXPECTED * 100);
+    return `<h1>${t('dashTitle')}</h1><p class="sub">${t('dashSub')}</p>
+    <div class="card hero">${ring(rate)}<div><small>${t('rate')}</small><strong>${money(COLLECTED)}</strong>
+      <small>${t('expected')} : ${money(EXPECTED)}</small></div></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="card kpi bad"><small>${t('late')} · ${t('lateN')}</small><b>${money(EXPECTED - COLLECTED)}</b></div>
+      <div class="card kpi good"><small>${t('cash')}</small><b>${money(COLLECTED - SPENT)}</b></div>
+      <div class="card kpi"><small>${t('spent')}</small><b>${money(SPENT)}</b></div>
+      <div class="card kpi good"><small>${t('siteNow')}</small><b>${GLOBAL}%</b>${bar(GLOBAL)}</div></div>
+    <p style="margin-top:14px;display:grid;gap:10px">
+      <button class="btn wa" style="justify-content:center" data-toast="remindAllMsg">${t('remindAll')}</button>
+      <button class="btn ghost" style="justify-content:center" data-toast="reportMsg">${t('report')}</button></p>${foot()}`;
+  },
+  members() {
+    return `<h1>${t('memTitle')}</h1><p class="sub">${t('memSub')}</p>
+    <div class="card">${MEMBERS.map((x, i) => `<div class="row"><div class="dot ${x.late ? 'late' : 'ok'}">${x.late ? '!' : '✓'}</div>
+      <div class="grow"><b>${L(x.n)} ${x.mre ? '<span class="tag mre">MRE</span>' : ''}</b>
+        <small>${x.l} · ${x.late ? `<span class="tag late">${t('lateOf')} ${money(x.late)} · ${x.j} ${t('days')}</span>` : `<span class="tag ok">${t('upToDate')}</span>`}</small></div>
+      ${x.late ? `<button class="btn wa small" data-remind="${i}">${t('remind')}</button>` : ''}</div>`).join('')}</div>${foot()}`;
+  },
+  exp() {
+    return `<h1>${t('expTitle')}</h1><p class="sub">${t('expSub')}</p>
+    <div class="card kpi"><small>${t('spent')}</small><b>${money(SPENT)}</b></div>
+    <div class="card">${EXPENSES.map(x => `<div class="row"><div class="grow"><b>${L(x.n)}</b><small>${x.d}</small></div>
+      <div class="amt">${money(x.a)}<br><button class="btn ghost small" style="margin-top:6px" data-toast="demoDoc">${t('proof')}</button></div></div>`).join('')}</div>
+    <p style="margin-top:14px"><button class="btn" data-toast="addExpMsg">+ ${t('addExp')}</button></p>${foot()}`;
+  },
+  wait() {
+    return `<h1>${t('waitTitle')}</h1><p class="sub">${t('waitSub')}</p>
+    <div class="card">${WAIT.map((x, i) => `<div class="row"><div class="dot todo">${i + 1}</div>
+      <div class="grow"><b>${L(x.n)}</b><small>${t('since')} ${x.d}</small></div>
+      ${i === 0 ? `<button class="btn small" data-toast="offerMsg">${t('offer')}</button>` : ''}</div>`).join('')}</div>${foot()}`;
+  }
+};
+
+const $ = s => document.querySelector(s);
+function toast(msg) {
+  const el = $('#toast'); el.textContent = msg; el.classList.add('on');
+  clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove('on'), 2600);
+}
+function receipt(i) {
+  const x = TRANCHES[i];
+  $('#sheet').innerHTML = `<h3>${t('receipt')}</h3><p class="sub" style="margin:0">Amicale Al Manar</p>
+    <dl><div><dt>${t('rNo')}</dt><dd>${x.no}</dd></div><div><dt>${t('rDate')}</dt><dd>${x.d}</dd></div>
+    <div><dt>${t('rFor')}</dt><dd>${L(x.n)}</dd></div><div><dt>${t('rMode')}</dt><dd>${L(x.m)}</dd></div>
+    <div><dt>${t('rAmt')}</dt><dd>${money(x.a)}</dd></div></dl>
+    <div class="acts"><button class="btn" data-toast="demoDoc">${t('pdf')}</button><button class="btn ghost" data-close>${t('close')}</button></div>`;
+  $('#modal').classList.add('on');
+}
+function render() {
+  const ar = S.lang === 'ar';
+  document.documentElement.lang = S.lang;
+  document.documentElement.dir = ar ? 'rtl' : 'ltr';
+  $('#tagline').textContent = t('tagline');
+  $('#demo').textContent = t('demo');
+  $('#lang').textContent = ar ? 'FR' : 'ع';
+  document.querySelectorAll('.roles button').forEach(b => {
+    b.textContent = t(b.dataset.role); b.classList.toggle('on', b.dataset.role === S.role);
+  });
+  $('#tabs').innerHTML = TABS[S.role].map(k =>
+    `<button data-go="${k}" class="${k === S.tab ? 'on' : ''}"><svg viewBox="0 0 24 24">${ICON[k]}</svg>${t(k)}</button>`).join('');
+  $('#view').innerHTML = V[S.tab]();
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-go],[data-role],[data-toast],[data-receipt],[data-remind],[data-close],#lang,#modal');
+  if (!el) return;
+  if (el.id === 'lang') { S.lang = S.lang === 'fr' ? 'ar' : 'fr'; $('#modal').classList.remove('on'); return render(); }
+  if (el.id === 'modal') { if (e.target === el) el.classList.remove('on'); return; }
+  const d = el.dataset;
+  if ('close' in d) return $('#modal').classList.remove('on');
+  if (d.role) { S.role = d.role; S.tab = TABS[S.role][0]; window.scrollTo(0, 0); return render(); }
+  if (d.go) { S.tab = d.go; window.scrollTo(0, 0); return render(); }
+  if (d.toast) return toast(t(d.toast));
+  if (d.receipt) return receipt(+d.receipt);
+  if (d.remind) return toast(`${t('remindMsg')} ${L(MEMBERS[+d.remind].n)} ${t('demoTag')}`);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') $('#modal').classList.remove('on');
+  if (e.key === 'Enter' && e.target.dataset && e.target.dataset.receipt) receipt(+e.target.dataset.receipt);
+});
+render();
+</script>
+</body>
+</html>
