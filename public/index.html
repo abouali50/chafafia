@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chafafia — Transparence pour amicales et coopératives d'habitat</title>
+<meta name="author" content="Aziz Mernissi">
+<meta name="description" content="Chafafia : suivi des tranches, du chantier, des comptes et des documents pour les adhérents et le bureau d'une amicale d'habitat.">
+<meta name="theme-color" content="#0f6b4f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23c8843a%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="/app.css" rel="stylesheet">
+</head>
+<body>
+<div class="app guest" id="app">
+  <header>
+    <div class="bar">
+      <div class="brand">
+        <div class="logo">ش</div>
+        <div><b>Chafafia</b><span id="tagline">Transparence pour amicales d'habitat</span></div>
+      </div>
+      <div class="hgroup">
+        <button class="hbtn" id="user" data-act="account" hidden></button>
+        <button class="lang" id="lang" data-act="lang" aria-label="Changer de langue">ع</button>
+      </div>
+    </div>
+  </header>
+  <div class="demo" id="strip" hidden></div>
+  <main id="view"><p class="empty">Chargement…</p></main>
+  <nav id="tabs"></nav>
+</div>
+<div id="modal"><div class="sheet" id="sheet"></div></div>
+<div id="toast" role="status"></div>
+<noscript><p style="padding:20px;background:#fff">Cette application a besoin de JavaScript pour fonctionner.</p></noscript>
+<script src="/app.js"></script>
+</body>
+</html>

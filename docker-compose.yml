@@ -1,0 +1,20 @@
+# Chafafia — Auteur : Aziz Mernissi
+name: chafafia
+services:
+  app:
+    image: node:22-alpine
+    working_dir: /app
+    command: ["node", "--disable-warning=ExperimentalWarning", "server.js"]
+    user: "1000:1000"
+    environment:
+      PORT: "3000"
+      DATA_DIR: /data
+      NODE_ENV: production
+      CHAFAFIA_SETUP_CODE: ${CHAFAFIA_SETUP_CODE:-}
+    volumes:
+      - ./server.js:/app/server.js:ro
+      - ./public:/app/public:ro
+      - ./data:/data
+    ports:
+      - "127.0.0.1:${CHAFAFIA_PORT:-3220}:3000"
+    restart: unless-stopped
